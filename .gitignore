@@ -1,6 +1,12 @@
+# Python
 .venv/
-.env/
-data/*
-*.csv
-.ipynb_checkpoints/
 __pycache__/
+
+# Environment
+.env
+!.env.example
+
+# Data
+data/raw/*
+!data/raw/.gitkeep
+data/processed/
