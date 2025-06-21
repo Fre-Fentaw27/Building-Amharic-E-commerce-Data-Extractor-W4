@@ -36,12 +36,20 @@ This project enables EthioMart to:
 Building-Amharic-E-commerce-Data-Extractor-W4/
 ├── .venv/
 ├── data/
+│ ├── clean/
+│ ├── raw/
+│ ├── for_annotation/
+├── notebooks/
+│ ├── preprocessing_task1.ipynb
 ├── scripts/
 │ ├── telegram_scraper.py
-│ ├── preprocessor.py
-│ └── labeling_tool.py
+│ ├── realtime_ingest.py
+│ ├── preprocess_telegramdata.py
+│ ├── labelstudio_annotation.py
 ├── .env # API credentials
 └── README.md
+└── .gitignore
+└── requirements.txt
 
 ## 🚀 Quick Start
 
@@ -63,7 +71,7 @@ TG_API_HASH=your_api_hash_here
 PHONE_NUMBER=+251XXXXXXXXXX  # Ethiopian number preferred
 
 # Optional settings
-MAX_MESSAGES=1000  # Per channel
+MAX_MESSAGES=500  # Per channel
 MEDIA_DOWNLOAD=True
 
 ### 2.  Run Pipeline
@@ -71,8 +79,5 @@ MEDIA_DOWNLOAD=True
   - python scripts/telegram_scraper.py
 
 # Step 2: Text Processing
-  - python scripts/preprocessor.py
-
-# Step 3: Labeling Prep
-  - python scripts/labeling_tool.py
+  - python scripts/preprocess_telegramdata.py
 ````

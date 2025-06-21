@@ -1,12 +1,18 @@
 # Python
 .venv/
 __pycache__/
-
 # Environment
 .env
 !.env.example
-
-# Data
-data/raw/*
-!data/raw/.gitkeep
-data/processed/
+# Hide raw data and Excel files
+data/raw/
+# Hide processed CSV (if contains sensitive data)
+data/clean/processed_telegram_data.csv
+# Hide annotatiom and json files
+data/for_annotation/
+# Keep only the unlabeled text file
+!data/clean/unlabeled_conll.txt
+# hide photos
+photos/
+# hide session 
+*.session
