@@ -46,6 +46,7 @@ Building-Amharic-E-commerce-Data-Extractor-W4/
 │ ├── realtime_ingest.py
 │ ├── preprocess_telegramdata.py
 │ ├── labelstudio_annotation.py
+│ ├── convert_to_ls_json.py
 ├── .env # API credentials
 └── README.md
 └── .gitignore
@@ -81,3 +82,18 @@ MEDIA_DOWNLOAD=True
 # Step 2: Text Processing
   - python scripts/preprocess_telegramdata.py
 ````
+
+## Task 1: Data Ingestion & Preprocessing
+
+## Task 2: Dataset Labeling
+
+- Steps Completed:
+- Sampled 50 diverse messages from unlabeled_conll.txt
+- CoNLL-format annotation with:
+
+```
+B-PRODUCT: "ሽያጭ"
+B-PRICE: "100"
+I-PRICE: "ብር"
+
+```

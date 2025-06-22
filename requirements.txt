@@ -6,3 +6,4 @@ telethon
 python-dotenv
 dotenv
 openpyxl
+label-studio
