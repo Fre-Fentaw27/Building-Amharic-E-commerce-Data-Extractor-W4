@@ -97,3 +97,73 @@ B-PRICE: "100"
 I-PRICE: "ብር"
 
 ```
+
+## Task 3: Fine Tune NER Model
+
+# Amharic Named Entity Recognition (NER) with XLM-Roberta
+
+This project fine-tunes a **multilingual XLM-Roberta model** for Named Entity Recognition (NER) on Amharic text, using Hugging Face's `transformers` and a labeled dataset in CoNLL format. The pipeline includes data preprocessing, model training, and evaluation.
+
+## 🚀 Features
+
+- **GPU-accelerated training** (Google Colab recommended).
+- Supports **Amharic CoNLL-formatted datasets** from Task 2.
+- Fine-tunes **XLM-Roberta** or **AfroXLMR** for multilingual NER.
+- Includes **token alignment**, **training/evaluation scripts**, and model saving.
+
+## ⚙️ Setup (Google Colab)
+
+1. **Enable GPU**:  
+   In Colab, go to:  
+   `Runtime → Change runtime type → Hardware accelerator → GPU (T4 or A100)`.
+
+2. **Install libraries**:
+   ```bash
+   !pip install transformers torch datasets pandas seqeval
+   ```
+3. **Load pretrained model (XLM-Roberta)**:
+
+```
+from transformers import AutoModelForTokenClassification, AutoTokenizer
+
+model_name = "xlm-roberta-base"  # or "Davlan/afro-xlmr-base" for AfroXLMR
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(
+    model_name,
+    num_labels=5,  # Adjust for your tagset (e.g., B-PER, I-LOC, etc.)
+    id2label={0: "O", 1: "B-PER", ...},  # Your label mapping
+    label2id={"O": 0, "B-PER": 1, ...}
+).to("cuda")
+
+```
+
+# 🏋️ Training
+
+1. Set training arguments:
+
+```
+from transformers import TrainingArguments
+
+training_args = TrainingArguments(
+    output_dir="ner_model",
+    evaluation_strategy="epoch",
+    learning_rate=2e-5,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=16,
+    num_train_epochs=3,
+    weight_decay=0.01,
+    logging_dir="logs",
+    save_strategy="epoch",
+    push_to_hub=False,  # Set to True to upload to Hugging Face Hub
+)
+```
+
+# 💾 Save Model
+
+```
+model.save_pretrained("./amharic-ner-model-final")
+tokenizer.save_pretrained("./amharic-ner-model-final")
+
+model.save_pretrained("/content/drive/MyDrive/amharic-ner-model")
+tokenizer.save_pretrained("/content/drive/MyDrive/amharic-ner-model")
+```

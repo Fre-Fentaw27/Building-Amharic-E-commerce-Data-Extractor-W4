@@ -19,3 +19,5 @@ data/for_annotation/
 photos/
 # Telethon sessions
 *.session
+# 4 Ignore the large model file
+amharic-ner-model/model.safetensors
