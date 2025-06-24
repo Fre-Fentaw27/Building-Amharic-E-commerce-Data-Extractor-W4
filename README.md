@@ -167,3 +167,117 @@ tokenizer.save_pretrained("./amharic-ner-model-final")
 model.save_pretrained("/content/drive/MyDrive/amharic-ner-model")
 tokenizer.save_pretrained("/content/drive/MyDrive/amharic-ner-model")
 ```
+
+# Model Comparison & Selection (Task 4) and Model Interpretability (Task 5)
+
+This repository contains the implementation and analysis for comparing multiple NER models and interpreting their predictions for Amharic text.
+
+## Table of Contents
+
+1. [Task 4: Model Comparison & Selection](#task-4-model-comparison--selection)
+   - [Objective](#objective)
+   - [Methodology](#methodology)
+   - [Results](#results)
+2. [Task 5: Model Interpretability](#task-5-model-interpretability)
+   - [Objective](#objective-1)
+   - [Techniques Used](#techniques-used)
+   - [Results](#results-1)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Directory Structure](#directory-structure)
+6. [References](#references)
+
+## Task 4: Model Comparison & Selection
+
+### Objective
+
+Compare different models (XLM-Roberta, DistilBERT, mBERT) and select the best-performing one for Amharic entity extraction based on accuracy, speed, and robustness :cite[2]:cite[5].
+
+### Methodology
+
+1. **Models Evaluated**:
+
+   - XLM-Roberta (fine-tuned on Amharic NER)
+   - DistilBERT (distilbert-base-multilingual-cased)
+   - mBERT (bert-base-multilingual-cased)
+
+2. **Evaluation Metrics**:
+
+   - Precision, Recall, F1-Score
+   - Inference Speed (seconds/sample)
+   - Memory Usage (MB)
+   - Robustness on ambiguous cases
+
+3. **Validation Approach**:
+   - 80/20 train-validation split
+   - Stratified sampling to maintain class balance :cite[2]
+   - McNemar's test for statistical significance of differences :cite[5]
+
+### Results
+
+Key findings are stored in `comparison_results/model_comparison_results.csv`:
+
+- XLM-Roberta achieved highest F1-score (0.88)
+- DistilBERT was fastest (0.08s/sample) but with lower accuracy
+- mBERT showed best balance between speed (0.12s/sample) and accuracy (0.85 F1)
+
+Visual comparisons available in `comparison_results/`:
+
+- `f1_comparison.png`: Model accuracy comparison
+- `speed_vs_accuracy.png`: Trade-off analysis
+
+## Task 5: Model Interpretability
+
+### Objective
+
+Explain how the selected NER model identifies entities using SHAP and LIME, ensuring transparency and trust in the system :cite[6]:cite[8].
+
+### Techniques Used
+
+1. **SHAP (SHapley Additive exPlanations)**:
+
+   - Global feature importance
+   - Text plot explanations for entity predictions
+   - Computed for 5 representative samples
+
+2. **LIME (Local Interpretable Model-agnostic Explanations)**:
+
+   - Local prediction explanations
+   - Analyzed 10 difficult cases
+   - Highlighted key tokens influencing predictions
+
+3. **Difficult Case Analysis**:
+   - Identified 5 ambiguous examples
+   - Compared model predictions vs ground truth
+   - Generated improvement recommendations
+
+### Results
+
+Outputs stored in `interpretability_results/`:
+
+1. SHAP:
+
+   - `shap_explanations.png`: Global feature importance
+   - `shap_sample_[X].png`: Individual sample explanations
+
+2. LIME:
+
+   - `lime_sample_[X].png`: Local explanations
+   - `lime_results.csv`: Quantitative analysis
+
+3. Reports:
+   - `difficult_cases.csv`: Problematic examples
+   - `interpretability_report.md`: Full analysis with recommendations
+
+## Installation
+
+```bash
+# Core requirements
+pip install transformers torch datasets pandas scikit-learn
+
+# Interpretability packages
+pip install shap lime matplotlib
+
+# For GPU support (recommended)
+pip install accelerate
+```

@@ -7,3 +7,8 @@ python-dotenv
 dotenv
 openpyxl
 label-studio
+shap 
+lime
+torch 
+transformers 
+scikit-learn
