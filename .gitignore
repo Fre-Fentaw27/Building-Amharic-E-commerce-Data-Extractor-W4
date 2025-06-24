@@ -21,3 +21,4 @@ photos/
 *.session
 # 4 Ignore the large model file
 amharic-ner-model/model.safetensors
+comparison_results/model_comparison_results.csv
